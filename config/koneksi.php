@@ -2,16 +2,12 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$dbname = 'sira_db';
+$db   = 'sira_db';
 
-$conn = mysqli_connect($host, $user, $pass, $dbname);
-
+$conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
-
-// Set charset
-mysqli_set_charset($conn, "utf8");
 
 // Mulai session jika belum
 if (session_status() === PHP_SESSION_NONE) {

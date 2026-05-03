@@ -1,5 +1,10 @@
 <?php
 require_once 'config/koneksi.php';
+
+// Cek apakah admin dan pimpinan sudah ada di database
+$adminExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='admin' LIMIT 1")) > 0;
+$pimpinanExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='pimpinan' LIMIT 1")) > 0;
+$hideRegister = ($adminExists && $pimpinanExists);
 ?>
 <!doctype html>
 <html lang="id">
@@ -9,6 +14,7 @@ require_once 'config/koneksi.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIRA - Sistem Informasi Rumah Sakit Ar-Rasyid</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="asset/image/icon/1.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="asset/css/style.css">
 </head>
@@ -17,7 +23,7 @@ require_once 'config/koneksi.php';
     <nav class="navbar">
         <div class="logo">
             <i class="fas fa-hospital"></i>
-            <span>SIRA - RS Ar-Rasyid</span>
+            <span>SIRA</span>
         </div>
         <div class="nav-links">
             <a href="index.php" class="nav-link">Beranda</a>
@@ -27,17 +33,18 @@ require_once 'config/koneksi.php';
         </div>
         <div class="nav-buttons">
             <a href="login.php" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="daftar.php" class="btn btn-register"><i class="fas fa-user-plus"></i> Daftar</a>
+            <?php if (!$hideRegister): ?>
+                <a href="daftar.php" class="btn btn-register"><i class="fas fa-user-plus"></i> Daftar</a>
+            <?php endif; ?>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Selamat Datang di <span>Sistem Informasi RS Ar-Rasyid</span></h1>
+            <h1>Selamat Datang di <span>Sistem Informasi Rekrutmen Ar-Rasyid</span></h1>
             <p>Sistem rekrutmen dan informasi terpadu. Bergabunglah dengan tim medis profesional kami yang berdedikasi.</p>
             <div class="hero-buttons">
                 <a href="lowongan.php" class="btn btn-hero btn-explore"><i class="fas fa-briefcase"></i> Lihat Lowongan</a>
-                <a href="daftar.php" class="btn btn-hero btn-learn"><i class="fas fa-user-graduate"></i> Daftar Pelamar</a>
             </div>
         </div>
     </section>
@@ -90,15 +97,15 @@ require_once 'config/koneksi.php';
         <div class="rekrutmen-content">
             <h2>Kembangkan Karir di RS Ar-Rasyid</h2>
             <p>Lowongan untuk tenaga medis, keperawatan, dan administrasi. Daftarkan dirimu sekarang!</p>
-            <a href="daftar.php" class="btn btn-rekrutmen"><i class="fas fa-paper-plane"></i> Daftar Sekarang</a>
+            <a href="lowongan.php" class="btn btn-rekrutmen"><i class="fas fa-paper-plane"></i> Lihat Lowongan</a>
         </div>
     </section>
 
     <footer class="footer" id="kontak">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>SIRA - RS Ar-Rasyid</h4>
-                <p>Sistem Informasi Rekrutmen & Pelayanan</p>
+                <h4>SIRA</h4>
+                <p>Sistem Informasi Rekrutmen Ar-Rasyid</p>
             </div>
             <div class="footer-section">
                 <h4>Kontak</h4>
