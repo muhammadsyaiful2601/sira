@@ -1,0 +1,289 @@
+/* RESET & GLOBAL - Konsisten dengan style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f4f7fc; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 460px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 28px;
+    padding: 2rem 1.8rem 1.8rem;
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef2f8;
+    transition: transform 0.2s ease;
+}
+
+.login-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Logo area */
+.logo-area {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+.hospital-logo {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    margin-bottom: 0.7rem;
+    filter: drop-shadow(0 4px 8px rgba(10, 75, 122, 0.15));
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1e3a5f; 
+    letter-spacing: -0.3px;
+}
+
+.app-title span {
+    font-weight: 500;
+    color: #0a6b9e;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-left: 0.3rem;
+}
+
+.tagline {
+    font-size: 0.75rem;
+    color: #5a7b9c; 
+    font-weight: 500;
+    margin-top: 0.2rem;
+}
+
+/* Alert */
+.alert {
+    border-radius: 16px;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1.2rem;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.alert-error {
+    background: #ffe6e6;
+    color: #c0392b;
+    border-left: 4px solid #c0392b;
+}
+
+.alert i {
+    font-size: 1rem;
+}
+
+/* Input group dengan floating label */
+.input-group {
+    position: relative;
+    margin-bottom: 1.8rem;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #7e9eaf;
+    font-size: 1.1rem;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.85rem 2.5rem 0.85rem 2.8rem;
+    font-size: 0.95rem;
+    border: 1.5px solid #ccdbe8;
+    border-radius: 18px;
+    background: white;
+    outline: none;
+    transition: all 0.2s;
+    color: #1e3a5f;
+}
+
+.input-group input:focus {
+    border-color: #0a6b9e;
+    box-shadow: 0 0 0 3px rgba(10, 107, 158, 0.1);
+}
+
+.floating-label {
+    position: absolute;
+    left: 2.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    padding: 0 4px;
+    font-size: 0.95rem;
+    color: #7e9eaf;
+    pointer-events: none;
+    transition: 0.2s ease-out;
+}
+
+.input-group input:focus ~ .floating-label,
+.input-group input:not(:placeholder-shown) ~ .floating-label {
+    top: -0.65rem;
+    left: 2.2rem;
+    font-size: 0.7rem;
+    background: white;
+    color: #0a6b9e;
+    font-weight: 500;
+}
+
+/* Toggle password */
+.toggle-password {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #8aa4bb;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #0a6b9e;
+}
+
+/* Form options */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.8rem 0 1.8rem;
+    font-size: 0.85rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2c4c6e;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+    accent-color: #0a6b9e;
+}
+
+.forgot-link {
+    color: #0a6b9e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed #bcd4e4;
+}
+
+.forgot-link:hover {
+    color: #084b6e;
+}
+
+/* Tombol login */
+.btn-login {
+    width: 100%;
+    padding: 0.85rem;
+    background: #0a6b9e;
+    border: none;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 6px 14px rgba(10, 107, 158, 0.25);
+}
+
+.btn-login i {
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.btn-login:hover {
+    background: #084b6e; /* hover dari style.css */
+    transform: scale(0.98);
+    box-shadow: 0 3px 8px rgba(10, 107, 158, 0.2);
+}
+
+.btn-login:active {
+    transform: scale(0.97);
+}
+
+/* Back link */
+.back-link {
+    text-align: center;
+    margin: 1.5rem 0 1rem;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: #0a6b9e;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+    font-weight: 500;
+}
+
+.back-link a:hover {
+    color: #1e3a5f;
+}
+
+/* Footer rumah sakit */
+.hospital-footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: #8aaabe;
+    margin-top: 1.2rem;
+    border-top: 1px solid #eef2f8;
+    padding-top: 1rem;
+    font-weight: 500;
+}
+
+.hospital-footer i {
+    color: #0a6b9e;
+    margin-right: 4px;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+    .app-title {
+        font-size: 1.5rem;
+    }
+    .hospital-logo {
+        width: 70px;
+        height: 70px;
+    }
+}
