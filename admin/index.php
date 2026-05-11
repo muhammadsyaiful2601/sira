@@ -32,7 +32,7 @@ $interview = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FR
         <div class="nav-links">
             <a href="index.php" class="nav-link">Dashboard</a>
             <a href="verifikasi_lamaran.php" class="nav-link">Verifikasi Lamaran</a>
-            <a href="kelola_lowongan.php" class="nav-link">Kelola Lowongan</a>
+            <a href="profile_admin.php" class="nav-link">Profil Saya</a>
         </div>
         <div class="nav-buttons">
             <a href="../logout.php" class="btn btn-login">Logout</a>

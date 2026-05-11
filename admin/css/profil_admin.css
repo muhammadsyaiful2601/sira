@@ -1,0 +1,160 @@
+/* profil_admin.css - gaya khusus halaman profil, selaras dengan admin.css */
+
+/* Grid layout untuk dua kartu */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+/* Kartu profil */
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header kartu - menggunakan gradien biru seperti navbar */
+.card-header {
+    background: linear-gradient(135deg, #0a6b9e, #0a4f73);
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-header i {
+    font-size: 1.4rem;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Body kartu */
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Form group sudah ada di admin.css, tapi kita tambah sedikit */
+.action-form .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.action-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+}
+
+.action-form .required {
+    color: #dc3545;
+    margin-left: 2px;
+}
+
+/* Password wrapper untuk tombol mata */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-control {
+    padding-right: 2.5rem;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover {
+    color: #0a6b9e;
+}
+
+/* Button group sudah ada di admin.css, tapi pastikan tombol di card menggunakan gaya yang sama */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Tombol di dalam kartu */
+.btn-primary, .btn-danger {
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+/* Pesan kecil untuk validasi */
+small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    color: #6c757d;
+}
+
+/* Alert sudah ada di admin.css, tidak perlu diubah */
+
+/* Header halaman */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #0a4f73;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.page-header p {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    .card-body {
+        padding: 1rem;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+    .btn-primary, .btn-danger {
+        width: 100%;
+        text-align: center;
+    }
+}

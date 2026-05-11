@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['tambah_admin'])) {
     }
 }
 
-// PROSES KEPUTUSAN LAMARAN (Terima/Tolak)
+// PROSES KEPUTUSAN LAMARAN (Terima/Tolak) dengan CONCAT catatan
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['keputusan'])) {
     $id_lamaran = intval($_POST['id_lamaran']);
     $keputusan  = $_POST['keputusan'];
@@ -40,15 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['keputusan'])) {
     exit;
 }
 
-// PROSES HAPUS LOWONGAN (dengan pengecekan apakah sudah ada pelamar diterima)
+// PROSES HAPUS LOWONGAN
 if (isset($_GET['hapus_lowongan'])) {
     $id_lowongan = intval($_GET['hapus_lowongan']);
-    // Cek apakah ada lamaran dengan status 'diterima' untuk lowongan ini
     $cek = mysqli_query($conn, "SELECT id FROM lamaran WHERE lowongan_id=$id_lowongan AND status_lamaran='diterima' LIMIT 1");
     if (mysqli_num_rows($cek) > 0) {
         $error_hapus = "Lowongan tidak dapat dihapus karena sudah ada pelamar yang diterima.";
     } else {
-        // Hapus lowongan (karena foreign key cascade, lamaran terkait ikut terhapus)
         mysqli_query($conn, "DELETE FROM lowongan WHERE id=$id_lowongan");
         $success_hapus = "Lowongan berhasil dihapus.";
     }
@@ -56,7 +54,6 @@ if (isset($_GET['hapus_lowongan'])) {
     exit;
 }
 
-// TAMPILKAN PESAN ERROR/SUKSES DARI HAPUS
 $info_hapus = '';
 if (isset($_GET['error_hapus'])) {
     $info_hapus = '<div class="alert alert-error">' . htmlspecialchars($_GET['error_hapus']) . '</div>';
@@ -64,7 +61,6 @@ if (isset($_GET['error_hapus'])) {
     $info_hapus = '<div class="alert alert-success">' . htmlspecialchars($_GET['success_hapus']) . '</div>';
 }
 
-// AMBIL LAMARAN STATUS INTERVIEW
 $lamaran_interview = mysqli_query($conn, "SELECT l.*, u.nama, u.email, u.no_hp, low.judul 
     FROM lamaran l 
     JOIN users u ON l.pelamar_id = u.id 
@@ -72,7 +68,6 @@ $lamaran_interview = mysqli_query($conn, "SELECT l.*, u.nama, u.email, u.no_hp, 
     WHERE l.status_lamaran = 'interview' 
     ORDER BY l.jadwal_interview ASC");
 
-// AMBIL SEMUA LOWONGAN
 $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_posting DESC");
 ?>
 
@@ -97,7 +92,7 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
     </nav>
 
     <div class="container">
-        <!-- ==================== KEPUTUSAN INTERVIEW ==================== -->
+        <!-- Keputusan Interview -->
         <div class="card-section">
             <h2><i class="fas fa-gavel"></i> Keputusan Final Lamaran (Interview)</h2>
             <?php if (mysqli_num_rows($lamaran_interview) == 0): ?>
@@ -126,13 +121,12 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
             <?php endif; ?>
         </div>
 
-        <!-- ==================== TAMBAH ADMIN (TOGGLE) ==================== -->
+        <!-- Tambah Admin -->
         <div class="card-section">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <h2><i class="fas fa-user-shield"></i> Kelola Admin</h2>
                 <button id="toggleAdminFormBtn" class="btn-primary"><i class="fas fa-plus-circle"></i> Tambah Admin</button>
             </div>
-            <!-- Form Tambah Admin (disembunyikan awal) -->
             <div id="adminFormContainer" style="display: none; margin-top: 20px;">
                 <?php if (isset($error_admin)): ?>
                     <div class="alert alert-error"><?= $error_admin ?></div>
@@ -157,7 +151,7 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
             </div>
         </div>
 
-        <!-- ==================== DAFTAR LOWONGAN + HAPUS ==================== -->
+        <!-- Daftar Lowongan -->
         <div class="card-section">
             <h2><i class="fas fa-briefcase"></i> Lowongan Tersedia</h2>
             <?= $info_hapus ?>
@@ -187,9 +181,7 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
                                     <td><?= htmlspecialchars(substr($low['kualifikasi'], 0, 60)) ?>...</td>
                                     <td><span class="badge <?= $low['status'] == 'buka' ? 'badge-open' : 'badge-closed' ?>"><?= $low['status'] == 'buka' ? 'Buka' : 'Tutup' ?></span></td>
                                     <td><?= date('d/m/Y', strtotime($low['tanggal_posting'])) ?></td>
-                                    <td>
-                                        <a href="?hapus_lowongan=<?= $low['id'] ?>" class="btn-hapus" onclick="return confirmHapus(event, this.href)"><i class="fas fa-trash-alt"></i> Hapus</a>
-                                    </td>
+                                    <td><a href="?hapus_lowongan=<?= $low['id'] ?>" class="btn-hapus" onclick="return confirm('Hapus lowongan ini? Semua lamaran terkait juga akan terhapus.')"><i class="fas fa-trash-alt"></i> Hapus</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
@@ -199,7 +191,6 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script src="js/dashboard.js"></script>
 </body>
 

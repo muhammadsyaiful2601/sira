@@ -1,21 +1,11 @@
-// admin/js/admin.js
+// admin/js/detail.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Konfirmasi hapus lowongan (jika ada tombol dengan class .btn-hapus)
-    const hapusButtons = document.querySelectorAll('.btn-hapus');
-    hapusButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (!confirm('Apakah Anda yakin ingin menghapus item ini? Tindakan ini tidak dapat dibatalkan.')) {
-                e.preventDefault();
-            }
-        });
-    });
-
-    // Untuk form detail lamaran: validasi jadwal interview
+    // Validasi form penerimaan (jadwal interview wajib)
     const btnTerima = document.getElementById('btnTerima');
     if (btnTerima) {
         btnTerima.addEventListener('click', function(e) {
-            const jadwal = document.getElementById('jadwal_interview');
-            if (jadwal && !jadwal.value) {
+            const jadwalInput = document.getElementById('jadwal_interview');
+            if (jadwalInput && !jadwalInput.value) {
                 e.preventDefault();
                 alert('Harap isi jadwal interview terlebih dahulu!');
                 return false;
@@ -26,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Konfirmasi penolakan
     const btnTolak = document.getElementById('btnTolak');
     if (btnTolak) {
         btnTolak.addEventListener('click', function(e) {
@@ -33,5 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
             }
         });
+    }
+
+    // Opsional: tambahan validasi jika ada elemen lain (misal preview file)
+    const catatanField = document.getElementById('catatan_admin');
+    if (catatanField) {
+        // hanya contoh, tidak ada validasi khusus
     }
 });

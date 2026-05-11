@@ -10,14 +10,14 @@ $user_id = $_SESSION['user_id'];
 // Ambil profil pelamar
 $profil = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nama, email, no_hp, alamat FROM users WHERE id = $user_id"));
 
-// Ambil lamaran terbaru pelamar (beserta jadwal interview, status)
+// Ambil lamaran terbaru pelamar
 $lamaran = mysqli_query($conn, "SELECT l.*, low.judul FROM lamaran l 
                                 JOIN lowongan low ON l.lowongan_id = low.id 
                                 WHERE l.pelamar_id = $user_id 
                                 ORDER BY l.tanggal_lamaran DESC LIMIT 1");
 $lamaran_data = mysqli_fetch_assoc($lamaran);
 
-// Tentukan pesan berdasarkan status & badge
+// Tentukan pesan & badge
 $status_message = '';
 $jadwal_info = '';
 $status_badge = '';
@@ -142,6 +142,16 @@ if ($lamaran_data) {
                                     </div>
                                 </div>
                             <?php endif; ?>
+                            <!-- Tambahan catatan pimpinan -->
+                            <?php if ($lamaran_data['catatan_pimpinan'] && ($status == 'ditolak' || $status == 'diterima')): ?>
+                                <div class="pimpinan-note">
+                                    <i class="fas fa-comment"></i>
+                                    <div>
+                                        <strong>Catatan Pimpinan:</strong>
+                                        <p><?= nl2br(htmlspecialchars($lamaran_data['catatan_pimpinan'])) ?></p>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="status-action">
                             <a href="../lowongan.php" class="btn btn-primary">
@@ -181,10 +191,9 @@ if ($lamaran_data) {
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <p>&copy; 2026 <span id="currentYear"></span> SIRA - Rumah Sakit Ar-Rasyid</p>
+                <p>&copy; 2026 SIRA - Rumah Sakit Ar-Rasyid</p>
                 <p class="footer-credit">Sistem Informasi Rekrutmen & Administrasi</p>
             </div>
         </footer>
