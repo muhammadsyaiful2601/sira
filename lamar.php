@@ -1,7 +1,5 @@
 <?php
 require_once 'config/koneksi.php';
-session_start();
-
 $lowongan_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $lowongan = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM lowongan WHERE id=$lowongan_id AND status='buka'"));
 
@@ -44,11 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $query_lamar = "INSERT INTO lamaran (pelamar_id, lowongan_id, cv_file, status_lamaran) 
                             VALUES ($user_id, $lowongan_id, '$cv_file', 'pending')";
             mysqli_query($conn, $query_lamar);
-            // Auto login
-            $_SESSION['user_id'] = $user_id;
-            $_SESSION['nama'] = $nama;
-            $_SESSION['role'] = 'pelamar';
-            header("Location: pelamar/index.php");
+
+            // Set pesan sukses dan redirect ke index.php tanpa auto login
+            $_SESSION['registration_success'] = "Pendaftaran berhasil! Silakan login untuk melanjutkan.";
+            header("Location: index.php");
             exit;
         } else {
             $error = "Gagal mendaftar: " . mysqli_error($conn);
@@ -65,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <link rel="icon" href="asset/image/icon/1.png" type="image/png">
     <style>
         .form-container {
             max-width: 700px;

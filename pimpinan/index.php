@@ -85,6 +85,7 @@ $lowongan_list = mysqli_query($conn, "SELECT * FROM lowongan ORDER BY tanggal_po
     <title>Dashboard Pimpinan | RS Ar-Rasyid</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="../asset/image/icon/1.png" type="image/png">
 </head>
 
 <body>

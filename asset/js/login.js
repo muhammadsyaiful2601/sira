@@ -35,9 +35,12 @@
 
             if (!email) {
                 errorMessage = 'Email wajib diisi.';
-            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            } 
+            // REGEX BARU: mendukung subdomain dan multi-level TLD (contoh: nama@domain.co.id)
+            else if (!/^[^\s@]+@([^\s@]+\.)+[^\s@]+$/.test(email)) {
                 errorMessage = 'Masukkan alamat email yang valid.';
-            } else if (!password) {
+            } 
+            else if (!password) {
                 errorMessage = 'Kata sandi tidak boleh kosong.';
             }
 
@@ -47,7 +50,7 @@
                     clientErrorMsg.innerText = errorMessage;
                     clientErrorDiv.style.display = 'flex';
                 }
-                clientErrorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (clientErrorDiv) clientErrorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             } else {
                 const btn = document.getElementById('btnLogin');
                 if (btn) {

@@ -16,6 +16,7 @@ $lamaran = mysqli_query($conn, $query);
 <head>
     <title>Verifikasi Lamaran</title>
     <link rel="stylesheet" href="../asset/css/style.css">
+    <link rel="icon" href="../asset/image/icon/1.png" type="image/png">
     <style>
         table {
             width: 100%;

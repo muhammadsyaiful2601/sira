@@ -1,10 +1,18 @@
 <?php
+session_start(); // Mulai session untuk menampilkan notifikasi
 require_once 'config/koneksi.php';
 
 // Cek apakah admin dan pimpinan sudah ada di database
 $adminExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='admin' LIMIT 1")) > 0;
 $pimpinanExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='pimpinan' LIMIT 1")) > 0;
 $hideRegister = ($adminExists && $pimpinanExists);
+
+// Ambil pesan notifikasi jika ada, lalu hapus dari session
+$successMessage = '';
+if (isset($_SESSION['registration_success'])) {
+    $successMessage = $_SESSION['registration_success'];
+    unset($_SESSION['registration_success']);
+}
 ?>
 <!doctype html>
 <html lang="id">
@@ -17,6 +25,41 @@ $hideRegister = ($adminExists && $pimpinanExists);
     <link rel="icon" href="asset/image/icon/1.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="asset/css/style.css">
+    <style>
+        /* Tambahan style untuk notifikasi sukses */
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .alert-success i {
+            font-size: 1.5rem;
+            color: #28a745;
+        }
+
+        .alert-success .close-notif {
+            margin-left: auto;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #155724;
+            opacity: 0.7;
+        }
+
+        .alert-success .close-notif:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,6 +91,17 @@ $hideRegister = ($adminExists && $pimpinanExists);
             </div>
         </div>
     </section>
+
+    <!-- Notifikasi Sukses Pendaftaran -->
+    <?php if ($successMessage): ?>
+        <div class="container" style="max-width: 1200px; margin: 1rem auto 0 auto; padding: 0 20px;">
+            <div class="alert-success" id="successAlert">
+                <i class="fas fa-check-circle"></i>
+                <span><?= htmlspecialchars($successMessage) ?></span>
+                <button class="close-notif" onclick="this.parentElement.style.display='none'">&times;</button>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <section class="stats">
         <div class="stat-item">
@@ -121,6 +175,19 @@ $hideRegister = ($adminExists && $pimpinanExists);
         <p>&copy; 2026 SIRA - Rumah Sakit Ar-Rasyid. All rights reserved.</p>
     </footer>
     <script src="asset/js/script.js"></script>
+    <script>
+        // Animasi hilang otomatis setelah 5 detik
+        setTimeout(function() {
+            var alert = document.getElementById('successAlert');
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s';
+                alert.style.opacity = '0';
+                setTimeout(function() {
+                    alert.remove();
+                }, 500);
+            }
+        }, 5000);
+    </script>
 </body>
 
 </html>
