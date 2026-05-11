@@ -229,6 +229,19 @@ body {
     transform: translateY(-1px);
 }
 
+/* PERBAIKAN: Tombol aksi tidak terlalu ke kanan */
+.data-table td.aksi {
+    text-align: left;      /* Rata kiri, bukan kanan */
+    white-space: nowrap;   /* Tombol tidak patah ke baris baru */
+}
+
+/* Opsional: menjaga tombol tetap rapi */
+.data-table td.aksi .btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
 /* Footer */
 .footer {
     text-align: center;
