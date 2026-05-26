@@ -1,13 +1,13 @@
 <?php
-session_start(); // Mulai session untuk menampilkan notifikasi
+session_start();
 require_once 'config/koneksi.php';
 
-// Cek apakah admin dan pimpinan sudah ada di database
+// Validasi ketersediaan role user
 $adminExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='admin' LIMIT 1")) > 0;
 $pimpinanExists = mysqli_num_rows(mysqli_query($conn, "SELECT id FROM users WHERE role='pimpinan' LIMIT 1")) > 0;
 $hideRegister = ($adminExists && $pimpinanExists);
 
-// Ambil pesan notifikasi jika ada, lalu hapus dari session
+// Flash message registrasi
 $successMessage = '';
 if (isset($_SESSION['registration_success'])) {
     $successMessage = $_SESSION['registration_success'];
@@ -26,7 +26,6 @@ if (isset($_SESSION['registration_success'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="asset/css/style.css">
     <style>
-        /* Tambahan style untuk notifikasi sukses */
         .alert-success {
             background-color: #d4edda;
             color: #155724;
@@ -71,8 +70,8 @@ if (isset($_SESSION['registration_success'])) {
         <div class="nav-links">
             <a href="index.php" class="nav-link">Beranda</a>
             <a href="#layanan" class="nav-link">Layanan</a>
-            <a href="lowongan.php" class="nav-link">Lowongan</a>
             <a href="#kontak" class="nav-link">Kontak</a>
+            <a href="lowongan.php" class="nav-link">Lowongan</a>
         </div>
         <div class="nav-buttons">
             <a href="login.php" class="btn btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
@@ -92,7 +91,6 @@ if (isset($_SESSION['registration_success'])) {
         </div>
     </section>
 
-    <!-- Notifikasi Sukses Pendaftaran -->
     <?php if ($successMessage): ?>
         <div class="container" style="max-width: 1200px; margin: 1rem auto 0 auto; padding: 0 20px;">
             <div class="alert-success" id="successAlert">
@@ -174,9 +172,9 @@ if (isset($_SESSION['registration_success'])) {
         </div>
         <p>&copy; 2026 SIRA - Rumah Sakit Ar-Rasyid. All rights reserved.</p>
     </footer>
+
     <script src="asset/js/script.js"></script>
     <script>
-        // Animasi hilang otomatis setelah 5 detik
         setTimeout(function() {
             var alert = document.getElementById('successAlert');
             if (alert) {

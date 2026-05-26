@@ -92,20 +92,29 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #eef5fc 0%, white 100%);
-    padding: 4rem 5%;
+    /* Overlay gradient agar teks tetap terbaca, background gambar diset di kanan */
+    background: linear-gradient(135deg, rgba(238, 245, 252, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%), 
+                url('asset/image/foto/backgroundrs.png');
+    background-size: contain;
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding: 6rem 5%;
+    display: flex;
+    align-items: center;
+    min-height: 75vh;
 }
 
 .hero-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
+    max-width: 650px;
+    margin: 0;
+    text-align: left;
 }
 
 .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: #1a2c3e;
     margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .hero-content h1 span {
@@ -122,7 +131,7 @@ body {
 .hero-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
 }
 

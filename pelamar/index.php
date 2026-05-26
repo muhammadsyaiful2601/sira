@@ -39,7 +39,7 @@ if ($lamaran_data) {
             $status_badge = 'interview';
             break;
         case 'diterima':
-            $status_message = 'SELAMAT! Lamaran Anda DITERIMA. Silakan cek email untuk informasi lebih lanjut.';
+            $status_message = 'SELAMAT! Lamaran Anda DITERIMA. Silahkan Informasi lebih lanjut akan dikirim melalui whatsapp anda';
             $status_badge = 'diterima';
             break;
         case 'ditolak':

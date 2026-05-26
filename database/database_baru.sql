@@ -41,13 +41,13 @@ CREATE TABLE IF NOT EXISTS lamaran (
     UNIQUE KEY unique_lamaran (pelamar_id, lowongan_id)
 ) ENGINE=InnoDB;
 
--- Data contoh
-INSERT INTO lowongan (judul, deskripsi, kualifikasi) VALUES
-('Dokter Umum', 'Melayani pasien rawat jalan dan IGD', 'Memiliki STR, pengalaman minimal 1 tahun'),
-('Perawat', 'Memberikan asuhan keperawatan', 'Lulusan D3 Keperawatan, memiliki SIK'),
-('Administrasi Rumah Sakit', 'Mengelola data pasien dan administrasi', 'Lulusan D3/S1 Administrasi, menguasai MS Office');
+CREATE TABLE IF NOT EXISTS pengaturan (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    setting_key VARCHAR(100) NOT NULL UNIQUE,
+    setting_value TEXT DEFAULT NULL
+) ENGINE=InnoDB;
 
--- Insert admin & pimpinan default (password: 12345678)
-INSERT INTO users (nama, email, password, role) VALUES
-('Admin RS', 'admin@rsarrahyd.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
-('Pimpinan RS', 'pimpinan@rsarrahyd.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'pimpinan');
+-- Nilai default: tampilkan semua lowongan (0 atau NULL berarti tanpa batas)
+INSERT INTO pengaturan (setting_key, setting_value) 
+VALUES ('lowongan_limit_depan', '0')
+ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);
